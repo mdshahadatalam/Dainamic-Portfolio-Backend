@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose');
 const Navbar = require('./Model/navbarModel')
@@ -15,6 +14,7 @@ const nodemailer = require("nodemailer");
 
 const multer  = require('multer')
 
+const app = express()
 const port = 3000
 
 const storage = multer.diskStorage({

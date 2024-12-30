@@ -272,8 +272,8 @@ app.post('/emailSend',async function(req,res){
     port: 587,
     secure: false, // true for port 465, false for other ports
     auth: {
-      user: "mdshahadatalam25@gmail.com",
-      pass: "bmgy sbbw ctbm prdi",
+      user: "process.env.REACT_APP_MENAM",
+      pass: "process.env.REACT_APP_PASSWORDS",
     },
   });
 

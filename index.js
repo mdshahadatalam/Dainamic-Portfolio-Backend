@@ -34,23 +34,7 @@ mongoose.connect(`mongodb+srv://${process.env.REACT_APP_USERNAME}:${process.env.
   .then(() => console.log('Connected!')).catch((err)=> console.log(err)
   )
 
-
-  const corsOptions = {
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://dainamic-portfolio-backend.vercel.app", // change link
-    ],
-    credentials: true,
   
-  };
-  app.use(cors(corsOptions));
-
-
-
-  
-
-
 
 app.use(cors());
 app.use(express.json())

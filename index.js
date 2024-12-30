@@ -37,7 +37,7 @@ mongoose.connect(`mongodb+srv://${process.env.REACT_APP_USERNAME}:${process.env.
   
 
 
-app.use(cors())
+app.use(cors({ origin: 'https://dainamic-portfolio-backend.vercel.app' }));
 app.use(express.json())
 app.use('/uploads', express.static('./uploads'))
 

@@ -15,6 +15,8 @@ const nodemailer = require("nodemailer");
 
 const multer  = require('multer')
 
+const port = 3000
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')
@@ -292,7 +294,15 @@ app.post('/emailSend',async function(req,res){
 })
 
 
-app.listen(3000)
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
 
 
 // mdshahedalam20

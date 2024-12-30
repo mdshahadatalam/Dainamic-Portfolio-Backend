@@ -263,34 +263,66 @@ app.delete('/portfolios/:id', async function(req,res){
 
 // contact 
 
-app.post('/emailSend',async function(req,res){
-  console.log(req.body);
-  res.send("Email Send")
-  const transporter = nodemailer.createTransport({
-    service:'gmail',
-    port: 587,
-    secure: false, // true for port 465, false for other ports
-    auth: {
-      user: "process.env.REACT_APP_MENAM",
-      pass: "process.env.REACT_APP_PASSWORDS",
-    },
-  });
+// app.post('/emailSend',async function(req,res){
+//   console.log(req.body);
+//   res.send("Email Send")
+//   const transporter = nodemailer.createTransport({
+//     service:'gmail',
+//     port: 587,
+//     secure: false, // true for port 465, false for other ports
+//     auth: {
+//       user: "process.env.REACT_APP_MENAM",
+//       pass: "process.env.REACT_APP_PASSWORDS",
+//     },
+//   });
 
-  const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
-    subject:req.body.subject, // Subject line
-    html: ` <b>Name:</b>${req.body.name}
-            <b>Email:</b>${req.body.email}
-            <b>Phone:</b>${req.body.phone}
-            <b>Message:</b>${req.body.message}
-            `, // html body
-  });
+//   const info = await transporter.sendMail({
+//     from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
+//     to: "bar@example.com, baz@example.com", // list of receivers
+//     subject:req.body.subject, // Subject line
+//     html: ` <b>Name:</b>${req.body.name}
+//             <b>Email:</b>${req.body.email}
+//             <b>Phone:</b>${req.body.phone}
+//             <b>Message:</b>${req.body.message}
+//             `, // html body
+//   });
 
-  console.log("Message sent: %s", info.messageId);
+//   console.log("Message sent: %s", info.messageId);
   
   
-})
+// })
+
+app.post('/emailSend', async function (req, res) {
+  try {
+    console.log(req.body);
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.REACT_APP_MENAM,
+        pass: process.env.REACT_APP_PASSWORDS,
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: `"${req.body.name}" <${process.env.REACT_APP_MENAM}>`, // sender address
+      to: req.body.email, // receiver address
+      subject: req.body.subject, // Subject line
+      html: `
+        <p><b>Name:</b> ${req.body.name}</p>
+        <p><b>Email:</b> ${req.body.email}</p>
+        <p><b>Phone:</b> ${req.body.phone}</p>
+        <p><b>Message:</b> ${req.body.message}</p>
+      `, // HTML body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    res.send("Email sent successfully");
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).send('Email sending failed');
+  }
+});
+
 
 
 
